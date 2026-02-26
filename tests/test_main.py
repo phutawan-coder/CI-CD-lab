@@ -3,6 +3,6 @@ from app.main import app
 
 client = TestClient(app)
 
-def test():
+def test_main():
     res = client.get('/')
     assert res.status_code == 200
