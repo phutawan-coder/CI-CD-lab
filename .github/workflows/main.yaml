@@ -21,4 +21,4 @@ jobs:
 
     - run: pytest
 
-    - run: docker build -t myapp:${{ git.sha }} .
+    - run: docker build -t myapp:${{ github.sha }} .
