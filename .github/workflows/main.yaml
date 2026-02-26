@@ -19,6 +19,6 @@ jobs:
 
     - run: pip install --no-cache-dir -r requirements.txt
 
-    - run: pytest
+    - run: python -m pytest
 
     - run: docker build -t myapp:${{ github.sha }} .
