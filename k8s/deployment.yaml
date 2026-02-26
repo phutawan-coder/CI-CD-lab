@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ci-cd-lab-deployment
+  namespace: ci-cd-lab
+spec:
+  replicas: 3
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+
+  selector:
+    matchLabels:
+      app: ci-cd-lab
+
+  template:
+    metadata:
+      labels:
+        app: ci-cd-lab
+    spec:
+      containers:
+        - name: ci-cd-lab
+          image: phutawan1906/ci-cd-lab:efa047456b886c871bdb58af0b28d28cf3d3cd7d
+          imagePullPolicy: IfNotPresent
+          
+          ports:
+            - containerPort: 8000
+
+          readinessProbe: 
+            httpGet:
+              path: /
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 3
+
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 10
